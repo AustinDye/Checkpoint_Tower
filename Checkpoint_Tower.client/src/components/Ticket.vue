@@ -1,5 +1,5 @@
 <template>
-  <div class="col-12 bg-info">
+  <div class="col-md-4 bg-info">
     <div
       class="ticket-card"
       :style="{ backgroundImage: `url(${event.coverImg})` }"
@@ -20,8 +20,16 @@
 
 <script>
 export default {
-  setup() {
-    return {};
+  props: {
+    event: {
+      type: Object,
+      required: true,
+    },
+    setup(props) {
+      return {
+        event: props.event,
+      };
+    },
   },
 };
 </script>
