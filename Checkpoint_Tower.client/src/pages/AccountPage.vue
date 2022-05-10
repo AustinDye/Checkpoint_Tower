@@ -4,7 +4,7 @@
     <img class="rounded" :src="account.picture" alt="" />
     <p>{{ account.email }}</p>
     <div v-for="t in tickets" :key="t.accountId" class="my-5">
-      <Ticket :event="t.event" />
+      <Ticket :ticket="t" />
     </div>
   </div>
 </template>

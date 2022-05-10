@@ -9,6 +9,11 @@ class TicketsService {
     return new Ticket(res.data)
   }
  
+ async deleteTicket(id) {
+   AppState.tickets = AppState.tickets.filter(t => t.id !== id)
+   const res = await api.delete('api/tickets/' + id)
+ }
+ 
  async getUserTickets() {
    const res = await api.get('/account/tickets')
   AppState.tickets = res.data
