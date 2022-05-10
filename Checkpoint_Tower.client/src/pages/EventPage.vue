@@ -2,11 +2,18 @@
   <div class="container">
     <div class="row">
       <div class="col-6">
+        <button
+          v-if="activeEvent.creatorId == account.id"
+          @click="cancelEvent"
+        ></button>
         <h1>{{ activeEvent.name }}</h1>
         <img :src="activeEvent.coverImg" class="img-fluid banner-img" />
         <h6>{{ activeEvent.location }}</h6>
         <h6>{{ activeEvent.type }}</h6>
-        <h6>Begins: {{ activeEvent.startDate }}</h6>
+        <h6>
+          Begins:
+          {{ activeEvent.isCanceled ? "Cornecelled" : ActiveEvent.startDate }}
+        </h6>
         <h6>Open Seats:{{ activeEvent.capacity }}</h6>
         <div v-for="t in tickets" :key="t.eventId">
           <img :src="t.account.picture" />
@@ -66,6 +73,16 @@ export default {
         );
         return found !== undefined;
       }),
+      async cancelEvent() {
+        try {
+          if (await Pop.confirm()) {
+            await eventsService.cancelEvent(this.activeEvent.id);
+            Pop.toast("Event Canceled!", "success");
+          }
+        } catch (error) {
+          Pop.toast("cannot cancel", "error");
+        }
+      },
       async createTicket() {
         this.loading = true;
         try {

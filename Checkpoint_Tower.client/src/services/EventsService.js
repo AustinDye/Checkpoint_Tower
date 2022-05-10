@@ -18,6 +18,11 @@ class EventsService {
     AppState.events.unshift(new Event(res.data))
     return new Event(res.data)
   }
+  
+  async cancelEvent(id) {
+    const res = await api.delete('api/events/' + id)
+    AppState.events = AppState.events.filter((e) => e.id !== e.id)
+  }
 
 }
 

@@ -10,7 +10,7 @@
         </h3>
         <p class="fs-6">
           {{ event.location }} <br />
-          {{ event.startDate }}
+          {{ event.isCanceled ? "Cornecelled" : event.startDate }}
         </p>
         <span>
           <p>{{ event.capacity }} spots left</p>
