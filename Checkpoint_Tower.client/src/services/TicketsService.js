@@ -5,8 +5,10 @@ import { api } from "./AxiosService";
 
 class TicketsService { 
   async createTicket(data){
-   const res = await api.post('api/tickets', data)
+    const res = await api.post('api/tickets', data)
+    AppState.tickets = [...AppState.tickets, res.data]
     return new Ticket(res.data)
+
   }
  
  async deleteTicket(id) {

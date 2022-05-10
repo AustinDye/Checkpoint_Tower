@@ -15,7 +15,12 @@
       </div>
       <div class="col-6 pt-4">
         <h3>{{ activeEvent.description }}</h3>
-        <button v-if="!isAttending" @click="createTicket">Get Ticket</button>
+        <button
+          v-if="!isAttending && !activeEvent.isCanceled"
+          @click="createTicket"
+        >
+          Get Ticket
+        </button>
         <div v-for="c in comments" :key="c.id" class="my-5">
           <Comment v-if="activeEvent.id == c.eventId" :comment="c" />
         </div>
@@ -62,6 +67,7 @@ export default {
         return found !== undefined;
       }),
       async createTicket() {
+        this.loading = true;
         try {
           let editable = {};
           editable.eventId = this.activeEvent.id;
@@ -71,6 +77,7 @@ export default {
           console.error("[error prefix]", error.message);
           Pop.toast(error.message, "error");
         }
+        this.loading = false;
       },
     };
   },
