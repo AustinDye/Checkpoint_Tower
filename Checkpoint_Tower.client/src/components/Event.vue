@@ -5,15 +5,18 @@
       :style="{ backgroundImage: `url(${event.coverImg})` }"
     >
       <div class="btn" @click="goToEvent">
+        <h6 v-if="event.isCanceled" class="bg-danger">CANCELLED</h6>
         <h3 class="">
           {{ event.name }}
         </h3>
         <p class="fs-6">
+          {{ event.type.toUpperCase() }}
           {{ event.location }} <br />
-          {{ event.isCanceled ? "Cornecelled" : event.startDate }}
+          DATE:{{ event.isCanceled ? "CANCELLED" : event.startDate }}
         </p>
         <span>
           <p>{{ event.capacity }} spots left</p>
+          <p v-if="event.capacity == 0" class="bg-warning">SOLD OUT</p>
         </span>
       </div>
     </div>
