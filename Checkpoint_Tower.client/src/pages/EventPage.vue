@@ -14,7 +14,7 @@
           {{ activeEvent.isCanceled ? "Cornecelled" : activeEvent.startDate }}
         </h6>
         <h6>Open Seats:{{ activeEvent.capacity }}</h6>
-        <div v-for="t in tickets" :key="t.eventId">
+        <div v-for="t in tickets" :key="t.eventId" :title="t.account.name">
           <img :src="t.account.picture" />
           <h6>{{ t.account.name }}</h6>
         </div>
