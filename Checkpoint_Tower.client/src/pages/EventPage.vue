@@ -8,10 +8,14 @@
         <h6>{{ activeEvent.type }}</h6>
         <h6>Begins: {{ activeEvent.startDate }}</h6>
         <h6>Open Seats:{{ activeEvent.capacity }}</h6>
+        <div v-for="t in tickets" :key="t.eventId">
+          <img :src="t.account.picture" />
+          <h6>{{ t.account.name }}</h6>
+        </div>
       </div>
       <div class="col-6 pt-4">
         <h3>{{ activeEvent.description }}</h3>
-        <button @click="createTicket">Get Ticket</button>
+        <button v-if="!isAttending" @click="createTicket">Get Ticket</button>
         <div v-for="c in comments" :key="c.id" class="my-5">
           <Comment v-if="activeEvent.id == c.eventId" :comment="c" />
         </div>
@@ -39,6 +43,7 @@ export default {
     onMounted(async () => {
       try {
         const eventId = route.params.eventId;
+        await ticketsService.getEventTickets(eventId);
         await commentsService.getAllComments(eventId);
         await eventsService.setActiveEvent(eventId);
       } catch (error) {
@@ -46,9 +51,16 @@ export default {
       }
     });
     return {
+      tickets: computed(() => AppState.tickets),
       comments: computed(() => AppState.comments),
       activeEvent: computed(() => AppState.activeEvent),
       account: computed(() => AppState.account),
+      isAttending: computed(() => {
+        const found = AppState.tickets.find(
+          (t) => t.accountId == AppState.account.id
+        );
+        return found !== undefined;
+      }),
       async createTicket() {
         try {
           let editable = {};
