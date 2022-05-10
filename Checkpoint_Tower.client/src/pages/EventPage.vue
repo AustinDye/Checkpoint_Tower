@@ -9,6 +9,7 @@
         <img :src="activeEvent.coverImg" class="img-fluid banner-img" />
         <h6>{{ activeEvent.location }}</h6>
         <h6>{{ activeEvent.type }}</h6>
+        <h6 v-if="activeEvent.isCanceled" class="bg-danger">CANCELLED</h6>
         <h6>
           Begins:
           {{ activeEvent.isCanceled ? "Cornecelled" : activeEvent.startDate }}
