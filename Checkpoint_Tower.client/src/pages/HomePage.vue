@@ -1,4 +1,21 @@
 <template>
+  <div class="row">
+    <div class="col-2">
+      <button @click="filterEventsByType('concert')">concert</button>
+    </div>
+    <div class="col-2">
+      <button @click="filterEventsByType('digital')">digital</button>
+    </div>
+    <div class="col-2">
+      <button @click="filterEventsByType('sport')">sport</button>
+    </div>
+    <div class="col-2">
+      <button @click="filterEventsByType('convention')">convention</button>
+    </div>
+    <div class="col-2">
+      <button @click="filterEventsByType('')">All</button>
+    </div>
+  </div>
   <div v-if="events" class="row d-flex justify-content-center">
     <Event v-for="e in events" :key="e.id" :event="e" />
   </div>
@@ -23,7 +40,16 @@ export default {
       }
     });
     return {
-      events: computed(() => AppState.events),
+      events: computed(() => {
+        if (AppState.filter) {
+          return AppState.events.filter((e) => e.type == AppState.filter);
+        }
+        return AppState.events;
+      }),
+      filterEventsByType(type) {
+        console.log(type, AppState.filter);
+        AppState.filter = type;
+      },
     };
   },
 };

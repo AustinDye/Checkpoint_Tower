@@ -24,6 +24,11 @@ class EventsService {
     AppState.events = AppState.events.filter((e) => e.id !== e.id)
   }
 
+  async filterEventsByType(type) {
+    AppState.events = AppState.events.filter((e) => e.type == type)
+  }
+
+
 }
 
 export const eventsService = new EventsService()

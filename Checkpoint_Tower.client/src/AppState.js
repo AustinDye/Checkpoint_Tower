@@ -8,6 +8,6 @@ export const AppState = reactive({
   events: [],
   activeEvent: {},
   comments: [],
-  isAttending: false
+  filter: ""
   
 })

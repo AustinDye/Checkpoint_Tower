@@ -2,17 +2,16 @@
   <div class="container">
     <div class="row">
       <div class="col-6">
-        <button
-          v-if="activeEvent.creatorId == account.id"
-          @click="cancelEvent"
-        ></button>
+        <button v-if="activeEvent.creatorId == account.id" @click="cancelEvent">
+          Cancel
+        </button>
         <h1>{{ activeEvent.name }}</h1>
         <img :src="activeEvent.coverImg" class="img-fluid banner-img" />
         <h6>{{ activeEvent.location }}</h6>
         <h6>{{ activeEvent.type }}</h6>
         <h6>
           Begins:
-          {{ activeEvent.isCanceled ? "Cornecelled" : ActiveEvent.startDate }}
+          {{ activeEvent.isCanceled ? "Cornecelled" : activeEvent.startDate }}
         </h6>
         <h6>Open Seats:{{ activeEvent.capacity }}</h6>
         <div v-for="t in tickets" :key="t.eventId">
